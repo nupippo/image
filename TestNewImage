@@ -1,0 +1,32 @@
+from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+from keras.models import load_model
+from scipy.misc import imread, imresize
+
+
+model = load_model('first_try.h5')
+# model = load_model('model_pic.h5')
+# img = imread('D:/project/image_classification/example/untitled/pic/validate/cat/cat.544.jpg', mode='L')
+# img = imread('D:/project/image_classification/example/untitled/pic/validate/id/73.jpg',mode='L')
+# img1 = imread('D:/project/image_classification/example/untitled/pic/train/cat/cat.1.jpg', mode='RGB')
+# img1 = imread('D:/project/image_classification/example/untitled/pic/train/id/3.jpg')
+img = imread('D:/project/image_classification/example/untitled/pic/convert2/_2_1553.jpeg')
+
+img1 = imresize(img, (150, 150))
+x = img_to_array(img1)  # this is a Numpy array with shape (3, 150, 150)
+# x = x.reshape((1,) + x.shape)  # this is a Numpy array with shape (1, 3, 150, 150)
+x = x.reshape((1,) + x.shape)
+print(model.predict_classes(x,verbose=1))
+print(model.predict(x,verbose=1))
+
+# test_datagen = ImageDataGenerator(rescale=1./255)
+# validation_generator = test_datagen.flow_from_directory(
+#         'D:/project/image_classification/example/untitled/pic/validate/',
+#         target_size=(150, 150),
+#         batch_size=10,
+#         class_mode='binary')
+#
+# res = model.predict_generator(validation_generator,val_samples=86)
+# # print(res)
+#
+# print(validation_generator.filenames)
+# print(res)
